@@ -26,11 +26,19 @@ export class AppComponent implements AfterViewInit {
 
   ngAfterViewInit() {
     this.ctx = this.canvas.nativeElement.getContext('2d');
+
+    // This should fail because images are not loaded at this point
     this.drawImages();
   }
 
   drawImage(image: any) {
-    this.ctx.drawImage(image, 0, 0, image.width, image.height);
+    this.ctx.drawImage(
+      image,
+      this.getRandomNumber(0, 250),
+      this.getRandomNumber(0, 250),
+      image.width,
+      image.height
+    );
   }
 
   drawImages() {
@@ -39,5 +47,9 @@ export class AppComponent implements AfterViewInit {
     } else {
       console.log('All images are not loaded!');
     }
+  }
+
+  getRandomNumber(min: number, max: number): number {
+    return Math.random() * (max - min) + min;
   }
 }
